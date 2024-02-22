@@ -17,7 +17,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.noteappkmm.android.MyApplicationTheme
 
 @Composable
 fun HideableSearchTextField(
@@ -41,7 +43,8 @@ fun HideableSearchTextField(
                 placeholder = { Text(text = "Search") },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp, end = 40.dp)
+                    .padding(16.dp)
+                    .padding(end = 40.dp)
             )
         }
         AnimatedVisibility(
@@ -50,12 +53,37 @@ fun HideableSearchTextField(
             exit = fadeOut(),
             modifier = Modifier.align(Alignment.CenterEnd)
         ) {
-            IconButton(onClick = if (isSearchActive) onCloseClick else onSearchClick) {
+            IconButton(onClick = onCloseClick) {
                 Icon(
-                    imageVector = if (isSearchActive) Icons.Default.Close else Icons.Default.Search,
-                    contentDescription = if (isSearchActive) "CLose search" else "Open search"
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close search"
                 )
             }
         }
+        AnimatedVisibility(
+            visible = !isSearchActive,
+            enter = fadeIn(),
+            exit = fadeOut(),
+            modifier = Modifier.align(Alignment.CenterEnd)
+        ) {
+            IconButton(onClick = onSearchClick) {
+                Icon(
+                    imageVector = Icons.Default.Search,
+                    contentDescription = "Open search"
+                )
+            }
+        }
+    }
+}
+@Preview
+@Composable
+fun HideableSearchTextFieldPreview() {
+    MyApplicationTheme {
+        HideableSearchTextField(
+            text = "Preview",
+            isSearchActive = true,
+            onTextChange = { },
+            onSearchClick = { /*TODO*/ },
+            onCloseClick = { /*TODO*/ })
     }
 }

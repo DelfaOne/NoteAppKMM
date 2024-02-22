@@ -17,8 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NoteListViewModel @Inject constructor(
     private val noteDataSource: NoteDataSource,
-    private val savedStateHandle: SavedStateHandle,
-): ViewModel() {
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
     private val searchNotes = SearchNotesUseCase()
 
@@ -35,7 +35,7 @@ class NoteListViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 
     fun loadNotes() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {//TODO inject dispatcher
             savedStateHandle["notes"] = noteDataSource.getAllNotes()
         }
     }
@@ -59,7 +59,7 @@ class NoteListViewModel @Inject constructor(
     }
 
     companion object {
-        const val NOTE_KEY = "note"
+        const val NOTE_KEY = "notes"
         const val SEARCH_TEXT_KEY = "searchText"
         const val IS_SEARCH_ACTIVE_KEY = "isSearchActive"
     }

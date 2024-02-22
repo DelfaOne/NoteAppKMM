@@ -22,10 +22,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.noteappkmm.android.MyApplicationTheme
 import com.example.noteappkmm.domain.note.Note
 import com.example.noteappkmm.domain.time.DateTimeUtil
+import com.example.noteappkmm.presentation.RedOrangeHex
 
 @Composable
 fun NoteItem(
@@ -77,5 +80,24 @@ fun NoteItem(
             modifier = Modifier.align(Alignment.End)
         )
 
+    }
+}
+
+@Preview
+@Composable
+fun NoteItemPreview() {
+    val color = RedOrangeHex
+    MyApplicationTheme {
+       NoteItem(
+           note = Note(
+               1,
+               "Title preview",
+               "Content preview",
+               color,
+               DateTimeUtil.now()
+           ),
+           backgroundColor = Color(color),
+           onNoteClick = { /*TODO*/ },
+           onDeleteClick = { /*TODO*/ })
     }
 }
