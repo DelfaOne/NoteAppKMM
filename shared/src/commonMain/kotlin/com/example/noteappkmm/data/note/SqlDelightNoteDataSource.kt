@@ -36,4 +36,8 @@ class SqlDelightNoteDataSource(db: NoteDatabase): NoteDataSource {
     override suspend fun deleteNoteById(id: Long) {
         queries.deleteNoteById(id)
     }
+
+    override suspend fun deleteAllNotes() {
+        queries.deleteAllNotes()
+    }
 }

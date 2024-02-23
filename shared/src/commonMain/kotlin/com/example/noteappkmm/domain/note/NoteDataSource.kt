@@ -7,4 +7,6 @@ interface NoteDataSource {
     suspend fun getNoteById(id: Long): Note?
     suspend fun getAllNotes(): List<Note>
     suspend fun deleteNoteById(id: Long)
+
+    suspend fun deleteAllNotes()
 }

@@ -25,8 +25,7 @@ class NoteDetailViewModel @Inject constructor(
     private val noteTitle = savedStateHandle.getStateFlow(NOTE_TITLE_KEY, "")
     private val isNoteTitleFocused = savedStateHandle.getStateFlow(IS_NOTE_TITLE_FOCUSED_KEY, false)
     private val noteContent = savedStateHandle.getStateFlow(NOTE_CONTENT_KEY, "")
-    private val isNoteContentFocused =
-        savedStateHandle.getStateFlow(IS_NOTE_CONTENT_FOCUSED_KEY, false)
+    private val isNoteContentFocused = savedStateHandle.getStateFlow(IS_NOTE_CONTENT_FOCUSED_KEY, false)
     private val noteColor = savedStateHandle.getStateFlow(NOTE_COLOR_KEY, Note.generateRandomColor())
 
     private val _noteIsSaved = MutableStateFlow(false)
@@ -42,7 +41,7 @@ class NoteDetailViewModel @Inject constructor(
         noteColor
     ) { title, isTitleFocused, content, isContentFocused, color ->
         NoteDetailState(
-            noteTile = title,
+            noteTitle = title,
             isNoteTitleHintVisible = title.isEmpty() && !isTitleFocused,
             noteContent = content,
             isNoteContentHintVisible = content.isEmpty() && !isContentFocused,

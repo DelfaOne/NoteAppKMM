@@ -34,6 +34,11 @@ class NoteListViewModel @Inject constructor(
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 
+    init {
+        viewModelScope.launch {
+            //noteDataSource.deleteAllNotes()
+        }
+    }
     fun loadNotes() {
         viewModelScope.launch(Dispatchers.IO) {//TODO inject dispatcher
             savedStateHandle["notes"] = noteDataSource.getAllNotes()

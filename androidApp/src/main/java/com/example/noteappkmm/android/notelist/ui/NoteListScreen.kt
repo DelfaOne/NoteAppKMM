@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.noteappkmm.android.notelist.NoteListViewModel
 import com.example.noteappkmm.domain.note.Note
 import com.example.noteappkmm.domain.note.Note.Companion.generateRandomColor
@@ -38,6 +40,7 @@ import com.example.noteappkmm.domain.time.DateTimeUtil
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NoteListScreen(
+    navController: NavController,
     viewModel: NoteListViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsState()
@@ -50,8 +53,9 @@ fun NoteListScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = {
-                    /*TODO*/
+                    navController.navigate("note_detail/-1L")
                 },
+                shape = CircleShape
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -86,7 +90,7 @@ fun NoteListScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = "All notes",
+                        text = "All notes \uD83D\uDE42",
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )
@@ -103,7 +107,7 @@ fun NoteListScreen(
                         note = note,
                         backgroundColor = Color(note.colorHex),
                         onNoteClick = {
-
+                            navController.navigate("note_detail/${note.id}")
                         },
                         onDeleteClick = {
                             viewModel.deleteNoteById(note.id!!)

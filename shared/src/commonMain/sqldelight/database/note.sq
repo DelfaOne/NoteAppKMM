@@ -28,3 +28,6 @@ INTO noteEntity(
 deleteNoteById:
 DELETE FROM noteEntity
 WHERE id = ?;
+
+deleteAllNotes:
+DELETE FROM noteEntity;
