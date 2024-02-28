@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HideableSearchTextField<Destination: View>: View {
     
-    var onSearToggled: () -> Void
+    var onSearchToggled: () -> Void
     var destinationProvider: () -> Destination
     var isSearchActive: Bool
     @Binding var searchText: String
@@ -24,11 +24,13 @@ struct HideableSearchTextField<Destination: View>: View {
                 Spacer()
             }
             
-            Button(action: onSearToggled) {
+            Button(action: onSearchToggled) {
                 Image(systemName: isSearchActive ? "xmark" : "magnifyingglass")
+                    .foregroundColor(.black)
             }
             NavigationLink(destination: destinationProvider) {
                 Image(systemName: "plus")
+                    .foregroundColor(.black)
             }
         }
     }
@@ -36,5 +38,5 @@ struct HideableSearchTextField<Destination: View>: View {
 
 #Preview {
     HideableSearchTextField(
-        onSearToggled: {}, destinationProvider: {EmptyView()}, isSearchActive: true, searchText: .constant("Hello world"))
+        onSearchToggled: {}, destinationProvider: {EmptyView()}, isSearchActive: true, searchText: .constant("Hello world"))
 }

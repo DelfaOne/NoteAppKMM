@@ -1,10 +1,15 @@
 import SwiftUI
+import shared
 
 @main
 struct iOSApp: App {
+    
+    private let dataBaseModule = DatabaseModule()
 	var body: some Scene {
 		WindowGroup {
-			ContentView()
+            NavigationView {
+                NoteListScreen(noteDataSource:  dataBaseModule.noteDataSource)
+            }.accentColor(.black)
 		}
 	}
 }
