@@ -1,4 +1,5 @@
 [versions]
+accompanistSystemuicontroller = "0.35.0-alpha"
 agp = "8.2.2"
 androidDriver = "2.0.1"
 desugar_jdk_libs = "2.0.4"
@@ -21,6 +22,7 @@ sqliteDriver = "2.0.1"
 sqldelightPluginVersion = "1.5.5"
 
 [libraries]
+accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "accompanistSystemuicontroller" }
 android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "androidDriver" }
 androidx-hilt-compiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltNavigationCompose" }
 androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }

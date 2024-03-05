@@ -74,12 +74,13 @@ fun NoteListScreen(
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                HideableSearchTextField(
+                TopBar(
                     text = state.searchText,
                     isSearchActive = state.isSearchActive,
                     onTextChange = viewModel::onSearchTextChange,
                     onSearchClick = viewModel::onToggleSearch,
                     onCloseClick = viewModel::onToggleSearch,
+                    onFilterClick = { viewModel.onFilterClick() },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(90.dp)
@@ -163,12 +164,13 @@ fun NoteListScreenPreview() {
                 modifier = Modifier.fillMaxWidth(),
                 contentAlignment = Alignment.Center
             ) {
-                HideableSearchTextField(
+                TopBar(
                     text = "Search Text",
                     isSearchActive = true,
                     onTextChange = { },
                     onSearchClick = { },
                     onCloseClick = { },
+                    onFilterClick = { },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(90.dp)

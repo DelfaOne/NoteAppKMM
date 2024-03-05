@@ -84,6 +84,7 @@ fun HideableSearchTextFieldPreview() {
             isSearchActive = true,
             onTextChange = { },
             onSearchClick = { /*TODO*/ },
-            onCloseClick = { /*TODO*/ })
+            onCloseClick = { /*TODO*/ }
+        )
     }
 }

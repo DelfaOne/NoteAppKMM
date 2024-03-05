@@ -25,12 +25,21 @@ class NoteListViewModel @Inject constructor(
     private val notes = savedStateHandle.getStateFlow(NOTE_KEY, emptyList<Note>())
     private val searchText = savedStateHandle.getStateFlow(SEARCH_TEXT_KEY, "")
     private val isSearchActive = savedStateHandle.getStateFlow(IS_SEARCH_ACTIVE_KEY, false)
+    private val isSortedByAscend = savedStateHandle.getStateFlow(IS_SORTED_BY_ASCEND, true)
 
-    val state = combine(notes, searchText, isSearchActive) { notes, searchText, isSearchActive ->
+    private var isSortedByAscendInternal = true
+
+    val state = combine(
+        notes,
+        searchText,
+        isSearchActive,
+        isSortedByAscend
+    ) { notes, searchText, isSearchActive, _ ->
         NoteListState(
             notes = searchNotes.execute(notes, searchText),
             searchText = searchText,
-            isSearchActive = isSearchActive
+            isSearchActive = isSearchActive,
+            isSortedByAscend = isSortedByAscendInternal
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 
@@ -39,6 +48,7 @@ class NoteListViewModel @Inject constructor(
             //noteDataSource.deleteAllNotes()
         }
     }
+
     fun loadNotes() {
         viewModelScope.launch(Dispatchers.IO) {//TODO inject dispatcher
             savedStateHandle["notes"] = noteDataSource.getAllNotes()
@@ -63,10 +73,23 @@ class NoteListViewModel @Inject constructor(
         }
     }
 
+    fun onFilterClick() {
+        isSortedByAscendInternal = !isSortedByAscendInternal
+        savedStateHandle[IS_SORTED_BY_ASCEND] = isSortedByAscendInternal
+
+        viewModelScope.launch(Dispatchers.IO) {
+            when (isSortedByAscend.value) {
+                true -> savedStateHandle["notes"] = noteDataSource.getAllNotes().sortedBy { it.created.date }
+                false -> savedStateHandle["notes"] = noteDataSource.getAllNotes().sortedByDescending { it.created.date }
+            }
+        }
+    }
+
     companion object {
         const val NOTE_KEY = "notes"
         const val SEARCH_TEXT_KEY = "searchText"
         const val IS_SEARCH_ACTIVE_KEY = "isSearchActive"
+        const val IS_SORTED_BY_ASCEND = "isSortedByAscend"
     }
 
 }
