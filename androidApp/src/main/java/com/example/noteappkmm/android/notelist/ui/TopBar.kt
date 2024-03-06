@@ -3,8 +3,10 @@ package com.example.noteappkmm.android.notelist.ui
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
@@ -18,6 +20,7 @@ import com.example.noteappkmm.android.MyApplicationTheme
 fun TopBar(
     text: String,
     isSearchActive: Boolean,
+    isAscendOrder: Boolean,
     onTextChange: (String) -> Unit,
     onSearchClick: () -> Unit,
     onCloseClick: () -> Unit,
@@ -37,15 +40,26 @@ fun TopBar(
             onCloseClick = onCloseClick,
             modifier.weight(1f)
         )
-        IconButton(onClick = onFilterClick) {
-            Icon(
-                imageVector = Icons.Default.DateRange,
-                contentDescription = "Close search",
-                modifier
-                    .weight(1f)
-                    .padding(8.dp)
-            )
+        if (isAscendOrder) {
+            IconButton(onClick = onFilterClick) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowDown,
+                    contentDescription = "Ascending order filter",
+                    modifier
+                        .size(20.dp)
+                )
+            }
+        } else {
+            IconButton(onClick = onFilterClick) {
+                Icon(
+                    imageVector = Icons.Default.KeyboardArrowUp,
+                    contentDescription = "Descending order filter",
+                    modifier
+                        .size(20.dp)
+                )
+            }
         }
+
     }
 }
 
@@ -53,13 +67,12 @@ fun TopBar(
 @Composable
 fun TopBarPreview() {
     MyApplicationTheme {
-        TopBar(
-            text = "Preview",
+        TopBar(text = "Preview",
             isSearchActive = true,
+            isAscendOrder = true,
             onTextChange = { },
             onSearchClick = { },
             onCloseClick = { },
-            onFilterClick = { }
-        )
+            onFilterClick = { })
     }
 }

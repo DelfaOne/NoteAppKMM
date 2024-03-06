@@ -77,6 +77,7 @@ fun NoteListScreen(
                 TopBar(
                     text = state.searchText,
                     isSearchActive = state.isSearchActive,
+                    isAscendOrder = state.isSortedByAscend,
                     onTextChange = viewModel::onSearchTextChange,
                     onSearchClick = viewModel::onToggleSearch,
                     onCloseClick = viewModel::onToggleSearch,
@@ -167,6 +168,7 @@ fun NoteListScreenPreview() {
                 TopBar(
                     text = "Search Text",
                     isSearchActive = true,
+                    isAscendOrder = true,
                     onTextChange = { },
                     onSearchClick = { },
                     onCloseClick = { },
